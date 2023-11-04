@@ -1,0 +1,45 @@
+{
+    "project_details": {
+        "project_manager": "pr-manager-name",
+        "project_client": "client-name",
+        "project_due_date": "22/01/2021",
+        "project_requirements": [
+            "e-commerce",
+            "documents (cotizacion, orden de compra)",
+            "inventory",
+            "production",
+            "invoicing",
+            "mailing"
+        ],
+        "relevant_information":" ( more info here... only if relevant to the context of the application or development proccess. ) "
+    },
+    "sprints": [
+        {
+            "consecutive":"1",
+            "lead-developer":"developer-name",
+            "developer-team":["name1", "name2", "etc..."],
+            "description":"sprint description example here, (must be detailed to clarify the requirements and limitations)",
+            "delivery":{
+                "status":"pending / on progress / finished ",
+                "time_frame":" number ex:( 5 )",
+                "measurement":"days/hours/weeks",
+                "start": " mm/dd/yyyy hh:mm am/pm   - ex:(12/26/2020 10:48am) ",
+                "end":" mm/dd/yyyy hh:mm am/pm "
+            },
+            "requirements":{
+                "other_sprints":[
+                    {
+                        "required_consecutive":"CONSECUTIVE OF THE REQUIRED SPRINT",
+                        "justification":"description of why the referenced ID is required before starting this sprint"
+                    }
+                ],
+                "external":[
+                    {
+                        "name":"ex: Files not sent by client / Access to database pending",
+                        "justification":"description of why the referenced ID is required before starting this sprint"
+                    }
+                ]
+            }
+        }
+    ]
+}

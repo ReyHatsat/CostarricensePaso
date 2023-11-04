@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "a6c81c96-d19d-4240-9693-a8670adc986d",
+		"name": "Costarricense_paso_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+  "item": [
+    {
+			"name": "TokenGenerator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73739e23-fb26-474e-b202-7ea845e06c55",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var token = jsonData.document.access_token;\r",
+							"postman.setEnvironmentVariable(\"token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"admin\",\n\"password\":\"admin123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/token/generate.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"token",
+						"generate.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/files/uploadimage.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"uploadimage.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/files/uploadfile.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"uploadfile.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read File Base64",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DEVServerURL}}/files/readfile.php?filename=5f3ac39e317dd5f3ac39e317e1.png",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"readfile.php"
+					],
+					"query": [
+						{
+							"key": "filename",
+							"value": "5f3ac39e317dd5f3ac39e317e1.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FCM Notification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"title of notification\",\r\n    \"subtitle\":\"subtitle of notification\",\r\n    \"body\":\"body of notification\",\r\n    \"iconURL\":\"https://s3.envato.com/files/298518272/80Logo.png\",\r\n    \"iconImage\":\"https://s3.envato.com/files/298518750/profileimg.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/notification/send.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"notification",
+						"send.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Email Notification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\":\"nisgyan@gmail.com,info@getautomator.com\",\r\n    \"subject\":\"sbuject of email\",\r\n    \"body\":\"body of email\",\r\n    \"cc\":\"nishant@migids.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/notification/sendemail.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"notification",
+						"sendemail.php"
+					]
+				}
+			},
+			"response": []
+		},
+    {"name": "Cat_Encaste - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_encaste","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Encaste - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_encaste","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Encaste - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_encaste","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Cat_Encaste - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_encaste\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_encaste","delete.php"] } }, "response": [] }
+,{"name": "Cat_Encaste - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"encaste\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_encaste","create.php"] } }, "response": [] }
+,{"name": "Cat_Encaste - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"encaste\":\"\",\"active\":\"\",\"id_encaste\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_encaste","update.php"] } }, "response": [] }
+,{"name": "Cat_Horse_Sex - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_horse_sex","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Horse_Sex - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_horse_sex","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Horse_Sex - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_horse_sex","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Cat_Horse_Sex - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_horse_sex\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_horse_sex","delete.php"] } }, "response": [] }
+,{"name": "Cat_Horse_Sex - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"sex\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_horse_sex","create.php"] } }, "response": [] }
+,{"name": "Cat_Horse_Sex - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"sex\":\"\",\"active\":\"\",\"id_horse_sex\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_horse_sex","update.php"] } }, "response": [] }
+,{"name": "Cat_Membership - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_membership","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Membership - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_membership","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Membership - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_membership","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Cat_Membership - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_membership\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_membership","delete.php"] } }, "response": [] }
+,{"name": "Cat_Membership - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"membership\":\"\",\"interval_months\":\"\",\"price\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_membership","create.php"] } }, "response": [] }
+,{"name": "Cat_Membership - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"membership\":\"\",\"interval_months\":\"\",\"price\":\"\",\"active\":\"\",\"id_membership\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_membership","update.php"] } }, "response": [] }
+,{"name": "Cat_Person_Type - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_person_type","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Person_Type - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_person_type","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Person_Type - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_person_type","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Cat_Person_Type - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person_type\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_person_type","delete.php"] } }, "response": [] }
+,{"name": "Cat_Person_Type - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"type\":\"\",\"data\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_person_type","create.php"] } }, "response": [] }
+,{"name": "Cat_Person_Type - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"type\":\"\",\"data\":\"\",\"active\":\"\",\"id_person_type\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_person_type","update.php"] } }, "response": [] }
+,{"name": "Horse - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Horse - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Horse - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Horse - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_horse\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","delete.php"] } }, "response": [] }
+,{"name": "Horse - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_current_owner\":\"\",\"id_encaste\":\"\",\"id_horse_sex\":\"\",\"horse_name\":\"\",\"birth_date\":\"\",\"first_owner_data\":\"\",\"breeder_data\":\"\",\"other_information\":\"\",\"observations\":\"\",\"microchip_no\":\"\",\"inscription_date\":\"\",\"inspector_reference\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","create.php"] } }, "response": [] }
+,{"name": "Horse - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_current_owner\":\"\",\"id_encaste\":\"\",\"id_horse_sex\":\"\",\"horse_name\":\"\",\"birth_date\":\"\",\"first_owner_data\":\"\",\"breeder_data\":\"\",\"other_information\":\"\",\"observations\":\"\",\"microchip_no\":\"\",\"inscription_date\":\"\",\"inspector_reference\":\"\",\"active\":\"\",\"id_horse\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","update.php"] } }, "response": [] }
+,{"name": "Horse - GETByid_current_owner", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","read_by_id_current_owner.php?id_current_owner=1"] } }, "response": [] }
+,{"name": "Horse - GETByid_encaste", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","read_by_id_encaste.php?id_encaste=1"] } }, "response": [] }
+,{"name": "Horse - GETByid_horse_sex", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse","read_by_id_horse_sex.php?id_horse_sex=1"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_old_owner\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","delete.php"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person\":\"\",\"id_horse\":\"\",\"from_date\":\"\",\"to_date\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","create.php"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person\":\"\",\"id_horse\":\"\",\"from_date\":\"\",\"to_date\":\"\",\"active\":\"\",\"id_old_owner\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","update.php"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - GETByid_person", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","read_by_id_person.php?id_person=1"] } }, "response": [] }
+,{"name": "Horse_Old_Owner - GETByid_horse", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_old_owner","read_by_id_horse.php?id_horse=1"] } }, "response": [] }
+,{"name": "Horse_Parents - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Horse_Parents - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Horse_Parents - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Horse_Parents - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_horse_parents\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","delete.php"] } }, "response": [] }
+,{"name": "Horse_Parents - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_horse\":\"\",\"mother_data\":\"\",\"father_data\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","create.php"] } }, "response": [] }
+,{"name": "Horse_Parents - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_horse\":\"\",\"mother_data\":\"\",\"father_data\":\"\",\"id_horse_parents\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","update.php"] } }, "response": [] }
+,{"name": "Horse_Parents - GETByid_horse", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["horse_parents","read_by_id_horse.php?id_horse=1"] } }, "response": [] }
+,{"name": "Person - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Person - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Person - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Person - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","delete.php"] } }, "response": [] }
+,{"name": "Person - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person_type\":\"\",\"name\":\"\",\"lastname\":\"\",\"main_email\":\"\",\"login_salt\":\"\",\"login_password\":\"\",\"member\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","create.php"] } }, "response": [] }
+,{"name": "Person - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person_type\":\"\",\"name\":\"\",\"lastname\":\"\",\"main_email\":\"\",\"login_salt\":\"\",\"login_password\":\"\",\"member\":\"\",\"active\":\"\",\"id_person\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","update.php"] } }, "response": [] }
+,{"name": "Person - GETByid_person_type", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person","read_by_id_person_type.php?id_person_type=1"] } }, "response": [] }
+,{"name": "Person_Membership - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Person_Membership - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Person_Membership - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Person_Membership - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_person_membership\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","delete.php"] } }, "response": [] }
+,{"name": "Person_Membership - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_membership\":\"\",\"id_person\":\"\",\"start_date\":\"\",\"end_date\":\"\",\"active\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","create.php"] } }, "response": [] }
+,{"name": "Person_Membership - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_membership\":\"\",\"id_person\":\"\",\"start_date\":\"\",\"end_date\":\"\",\"active\":\"\",\"id_person_membership\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","update.php"] } }, "response": [] }
+,{"name": "Person_Membership - GETByid_membership", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","read_by_id_membership.php?id_membership=1"] } }, "response": [] }
+,{"name": "Person_Membership - GETByid_person", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["person_membership","read_by_id_person.php?id_person=1"] } }, "response": [] }
+
+  ],
+	"protocolProfileBehavior": {}
+}
